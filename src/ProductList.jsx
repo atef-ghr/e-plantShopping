@@ -7,6 +7,7 @@ function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
+    const [ cartItems ] = useState(cart.cartItems)()
     const dispatch = useDispatch();
 
     const plantsArray = [
@@ -300,7 +301,7 @@ function ProductList({ onHomeClick }) {
                     {plantsArray.map((category, i) => ( 
                         <div key={i}> 
                             <h1>
-                            <div>{category.category}</div> 
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', }}>{category.category}</div> 
                             </h1>
                             <div className="product-list"> 
                             {category.plants.map((plant, j) => (
@@ -317,7 +318,7 @@ function ProductList({ onHomeClick }) {
                                 {!addedToCart[plant.name] ? (
                                     <button className="product-button" onClick={() => handleAddToCart(plant)} >Add to Cart</button>
                                 ) : (
-                                    <button className="product-button added-to-cart" onClick={() => handleAddToCart(plant)} >Added already to Cart, add again?</button>
+                                    <button className="product-button added-to-cart" disabled>Added</button>
                                 )} 
                                 
                                 </div>
