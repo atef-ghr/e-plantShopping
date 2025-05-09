@@ -10,6 +10,8 @@ function ProductList({ onHomeClick }) {
     //const [ cartItems ] = useState(cart.cartItems)()
     const cart = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
+
+    const cartSize = cart.length;
     
 
     const plantsArray = [
@@ -243,6 +245,7 @@ function ProductList({ onHomeClick }) {
     const handleHomeClick = (e) => {
         e.preventDefault();
         onHomeClick();
+        setShowCart(false);
     };
 
     const handleCartClick = (e) => {
@@ -258,14 +261,6 @@ function ProductList({ onHomeClick }) {
     const handleContinueShopping = (e) => {
         e.preventDefault();
         setShowCart(false);
-
-        console.log(cart)
-        console.log(addedToCart)
-
-
-
-
-        //setAddedToCart((prevState) => ({ ...prevState, [product.name]: false, }));
     };
 
     const handleAddToCart = (product) => {
@@ -296,14 +291,27 @@ function ProductList({ onHomeClick }) {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
                             <rect width="156" height="156" fill="none">
                             </rect>
+                              <text
+                                    x="130"       // horizontal position
+                                    y="130"       // vertical position
+                                    fill="red"   // text color
+                                    fontSize="90"
+                                    textAnchor="middle"
+                                    alignmentBaseline="middle"
+                                >
+                                    { cartSize }
+                                </text>
                             <circle cx="80" cy="216" r="12"></circle>
                             <circle cx="184" cy="216" r="12"></circle>
                             <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute">
 
                             </path>
                         </svg>
+
+
+
                         </h1></a>
-                        </div>
+                    </div>
                 </div>
             </div>
             {!showCart ? (
@@ -325,7 +333,7 @@ function ProductList({ onHomeClick }) {
                                 <div className="product-title">{plant.name}</div> 
                                 
                                 <div className="product-description">{plant.description}</div> 
-                                <div className="product-cost">${plant.cost}</div>
+                                <div className="product-cost">{plant.cost}</div>
                                 {!cart.some(item => item.name === plant.name) ? (     //!addedToCart[plant.name] ? (
                                     <button className="product-button" onClick={() => handleAddToCart(plant)} >Add to Cart</button>
                                 ) : (
